@@ -22,14 +22,14 @@ public class f {
         return instance.doFinal(bArr);
     }
 
-    public static String b(String str) {
+    public static String encode_str(String str) {
         byte[] bytes = str.getBytes();
         int random = (int) (Math.random() * 15.0d);
         int random2 = ((int) (Math.random() * 12.0d)) + 3;
-        byte[] a2 = a(random2);
+        byte[] random_bytes = gen_random_bytes(random2);
         int i = random2 | (random << 4);
-        byte[] b2 = b(a2, bytes);
-        byte[] f = f(a2);
+        byte[] bytes_randomized = apply_random_bytes(random_bytes, bytes);
+        byte[] shifted_bytes = shift_random_bytes(random_bytes);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
         try {
@@ -39,12 +39,12 @@ public class f {
                 bArr[0] = 8;
                 dataOutputStream.write(bArr);
             }
-            dataOutputStream.write(f);
-            dataOutputStream.write(b2);
+            dataOutputStream.write(shifted_bytes);
+            dataOutputStream.write(bytes_randomized);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             dataOutputStream.close();
             byteArrayOutputStream.close();
-            return a(byteArray);
+            return byte_array_to_hex_str(byteArray);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -80,7 +80,7 @@ public class f {
         throw new IllegalArgumentException("长度不是偶数");
     }
 
-    private static byte[] f(byte[] bArr) {
+    private static byte[] shift_random_bytes(byte[] bArr) {
         int length = bArr.length;
         byte[] bArr2 = new byte[length];
         for (int i = 0; i < length; i++) {
@@ -115,7 +115,7 @@ public class f {
         return sb.toString();
     }
 
-    private static String c(byte[] bArr) {
+    private static String bytes_to_hex_string(byte[] bArr) {
         StringBuilder sb = new StringBuilder();
         for (byte b2 : bArr) {
             String hexString = Integer.toHexString(b2 & 255);
@@ -127,12 +127,12 @@ public class f {
         return sb.toString();
     }
 
-    public static String e(String str) {
-        byte[] bytes = str.getBytes();
+    public static String calculate_sha_key(String encoded_str) {
+        byte[] bytes = encoded_str.getBytes();
         try {
             MessageDigest instance = MessageDigest.getInstance("SHA-256");
             instance.update(bytes);
-            return c(instance.digest());
+            return bytes_to_hex_string(instance.digest());
         } catch (NoSuchAlgorithmException unused) {
             return null;
         }
@@ -154,7 +154,7 @@ public class f {
         return "";
     }*/
 
-    private static String a(byte[] bArr) {
+    private static String byte_array_to_hex_str(byte[] bArr) {
         StringBuilder sb = new StringBuilder();
         for (byte b2 : bArr) {
             String hexString = Integer.toHexString(b2 & 255);
@@ -168,7 +168,7 @@ public class f {
         return sb.toString().toUpperCase();
     }
 
-    private static byte[] b(byte[] bArr, byte[] bArr2) {
+    private static byte[] apply_random_bytes(byte[] bArr, byte[] bArr2) {
         int length = bArr2.length;
         int length2 = bArr.length;
         byte[] bArr3 = new byte[length];
@@ -183,7 +183,7 @@ public class f {
         return bArr3;
     }
 
-    private static byte[] a(int i) {
+    private static byte[] gen_random_bytes(int i) {
         byte[] bArr = new byte[i];
         for (int i2 = 0; i2 < i; i2++) {
             bArr[i2] = (byte) ((int) (Math.random() * 255.0d));

@@ -17,9 +17,9 @@ public class c {
         }
         String sb2 = sb.toString();
         HashMap<String, String> hashMap = new HashMap<String, String>();
-        String b2 = f.b(sb2);
+        String b2 = f.encode_str(sb2);
         hashMap.put("key", b2);
-        hashMap.put("shaKey", f.e(b2));
+        hashMap.put("shaKey", f.calculate_sha_key(b2));
         System.out.println("key=" + hashMap.get("key") + "&shaKey=" + hashMap.get("shaKey"));
     }
 
@@ -35,7 +35,7 @@ public class c {
         }
         String sb2 = sb.toString();
         HashMap<String, String> hashMap = new HashMap<String, String>();
-        hashMap.put("key", f.b(sb2));
+        hashMap.put("key", f.encode_str(sb2));
         System.out.println("encryptParams : " + hashMap.toString());
     }
 }

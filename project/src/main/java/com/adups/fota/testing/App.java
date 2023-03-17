@@ -5,17 +5,17 @@ import java.util.HashMap;
 
 public class App 
 {
-    /*private static final String ro_fota_oem = "incartech3326_10.0";
+    private static final String ro_fota_oem = "incartech3326_10.0";
     private static final String ro_fota_device = "TBT8A10";
     private static final String ro_product_locale = "es-ES";
     private static final String ro_operator_optr = "";
-    private static final String ro_fota_version = "QQ2A.200305.004.A1 release-keys_20210913-1718";*/
+    private static final String ro_fota_version = "QQ2A.200305.004.A1 release-keys_20210913-1718";
 
-    private static final String ro_fota_oem = "tinno6735_6.0";
+    /*private static final String ro_fota_oem = "tinno6735_6.0";
     private static final String ro_fota_device = "R1_HD_R0010UU_GENERIC";
     private static final String ro_product_locale = "en";
     private static final String ro_operator_optr = "";
-    private static final String ro_fota_version = "";
+    private static final String ro_fota_version = "";*/
 
     public static void main( String[] args )
     {
