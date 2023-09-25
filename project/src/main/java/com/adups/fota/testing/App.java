@@ -9,7 +9,7 @@ public class App
     private static final String ro_fota_device = "TBT8A10";
     private static final String ro_product_locale = "es-ES";
     private static final String ro_operator_optr = "";
-    private static final String ro_fota_version = "QQ2A.200305.004.A1 release-keys_20210913-1718";
+    private static final String ro_fota_version = "TG08RK1_20230508_20230508-1529";
 
     /*private static final String ro_fota_oem = "tinno6735_6.0";
     private static final String ro_fota_device = "R1_HD_R0010UU_GENERIC";
