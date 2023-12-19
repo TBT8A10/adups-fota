@@ -15,6 +15,7 @@ This repository contains:
     ```
     * When an update is detected, the server seems to always give the latest OTA zip. The only difference is that depending on the `RO_FOTA_VERSION` you use, it'll give the corresponding zip needed to update from that version to the latest one.
     ![Script output when update is found](image.png)
+    * If the `RO_FOTA_VERSION` you use is too old, the server may return that no updates are available. This is most likely because the OEM stopped building OTA packages for that version.
 
 * To install the update on a device, it should be as easy as booting into recovery and sideloading the zip or installing it from an SD Card (`Apply update from ADB` and `Apply update from SD card` options)
 
