@@ -20,3 +20,5 @@ This repository contains:
 * To install the update on a device, it should be as easy as booting into recovery and sideloading the zip or installing it from an SD Card (`Apply update from ADB` and `Apply update from SD card` options)
 
 * To patch system, vendor, boot or other images, extract the OTA zip and use [these tools](https://github.com/erfanoabdi/imgpatchtools).
+
+I'll be uploading TBT8A10 OTAs on [Google Drive](https://drive.google.com/drive/folders/18Puq4z58ENhaOOJYs3mb7VziM32NQbyQ?usp=sharing).
