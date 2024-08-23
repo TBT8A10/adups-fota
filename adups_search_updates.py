@@ -70,6 +70,38 @@ def encode_data(s: str) -> str:
 
     return out.upper()
 
+def decode_data(key: str) -> str:
+    data: bytearray = bytearray.fromhex(key)
+
+    useless_bytes_num = data[0] >> 4
+    assert 0 <= useless_bytes_num <= 14
+    random_bytes_num = data[0] & 0xf
+    assert 3 <= random_bytes_num <= 14
+    data = data[1:]
+
+    # Check & remove useless bytes
+    if useless_bytes_num > 0:
+        assert data[0] == 8
+        for i in range(1, useless_bytes_num):
+            assert data[i] == 0
+    data = data[useless_bytes_num:]
+
+    # Unshift & remove random bytes
+    random_bytes = []
+    for i in range(random_bytes_num):
+        random_bytes.append(
+            (255 * (data[i] & 0x7) + data[i]) >> 3
+        )
+
+        assert 0 <= random_bytes[i] <= 254
+    data = data[random_bytes_num:]
+
+    # Decode data
+    for i in range(len(data)):
+        data[i] = data[i] ^ random_bytes[i % random_bytes_num]
+
+    return data.decode('utf8')
+
 def calculate_sha_key(data: str) -> str:
     hash = hashlib.sha256()
     hash.update(bytes(data, 'utf8'))
