@@ -33,41 +33,41 @@ def create_config() -> dict[str, str]:
 
 def encode_data(s: str) -> str:
     data = bytes(s, 'utf8')
-    # In the original app it was like these commented lines,
-    # but we will use fixed values to make this function predictable
-    # rnd = random.randint(0, 14)
-    # rnd2 = random.randint(0, 11) + 3
-    # random_bytes = bytes(
-    #     [random.randint(0, 254) for _ in range(rnd2)]
-    # )
-    rnd = 0
-    rnd2 = 1
-    random_bytes = bytes([0])
 
-    i = rnd2 | (rnd << 4)
-    # Apply random_bytes to data
-    data = bytes(
-        [(data[i] & 255) ^ (random_bytes[i % rnd2] & 255) for i in range(len(data))]
+    useless_bytes_num = random.randint(0, 14)
+    random_bytes_num = random.randint(0, 11) + 3
+    random_bytes = bytes(
+        [random.randint(0, 254) for _ in range(random_bytes_num)]
     )
+
+    # Encode data with random_bytes
+    data = bytes(
+        [(data[i] ^ random_bytes[i % random_bytes_num]) for i in range(len(data))]
+    )
+
     # Shift random_bytes
     shifted_bytes = bytes(
-        [((random_bytes[i] & 255) >> 5) | ((random_bytes[i] & 255) << 3) % 255 for i in range(len(random_bytes))]
+        [((random_bytes[i] >> 5) | ((random_bytes[i] << 3) % 255)) for i in range(len(random_bytes))]
     )
 
-    out_bytes = [i]
-    if rnd > 0:
-        for i in range(rnd):
-            out.append(0)
+    # Add amount of useless bytes & random bytes
+    out_bytes = [random_bytes_num | (useless_bytes_num << 4)]
+    # Add useless bytes
+    if useless_bytes_num > 0:
+        for _ in range(useless_bytes_num):
+            out_bytes.append(0)
         out_bytes[1] = 8
+    # Add shifted random bytes
     for b in shifted_bytes:
         out_bytes.append(b)
+    # Add encoded data
     for b in data:
         out_bytes.append(b)
 
     out = ''
     for b in out_bytes:
         out += f'{b:02x}'
-    
+
     return out.upper()
 
 def calculate_sha_key(data: str) -> str:
